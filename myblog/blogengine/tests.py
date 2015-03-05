@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, LiveServerTestCase, Client
 from django.utils import timezone
 from blogengine.models import Post
 # Create your tests here.
@@ -29,3 +29,55 @@ class PostTest(TestCase):
 		self.assertEquals(only_post.pub_date.hour, post.pub_date.hour)
 		self.assertEquals(only_post.pub_date.minute, post.pub_date.minute)
 		self.assertEquals(only_post.pub_date.second, post.pub_date.second)
+
+
+class AdminTest(LiveServerTestCase):
+	fixtures = ['users.json']
+
+
+	def test_login(self):
+		#create Client
+
+		c = Client()
+
+		#get Login page
+		response = c.get('/admin/', follow=True)
+
+		#Check response code
+
+		self.assertEquals(response.status_code, 200)
+
+		#check 'log in' in response
+		self.assertTrue('Log in' in response.content)
+
+		# Log the user in
+		c.login(username='bobsmith', password='password')
+
+		#Check response code
+		response = c.get('/admin/')
+		self.assertEquals(response.status_code, 200)
+
+		#check log out
+
+		self.assertTrue('Log out' in response.content)
+
+	def test_logout(self):
+
+		c = Client()
+
+		c.login(username='bobsmith', password='password')
+
+		response = c.get('/admin/')
+
+		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue('Log out' in response.content)
+
+		c.logout()
+
+		response = c.get('/admin/', follow=True)
+
+		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue('Log in' in response.content)
+
