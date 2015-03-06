@@ -129,6 +129,11 @@ class AdminTest(LiveServerTestCase):
 		self.assertEquals(len(all_posts), 1)
 
 	def test_edit_post(self):
+		"""
+		Need to figure out how to get the post id
+		"""	
+
+
 		pass
 		# post = Post()
 		# post.title = 'My first post'
@@ -186,3 +191,24 @@ class AdminTest(LiveServerTestCase):
 		all_posts = Post.objects.all()
 
 		self.assertEquals(len(all_posts), 0)
+
+
+class PostViewTesT(LiveServerTestCase):
+	def setUp(self):
+		self.client = Client()
+
+	def test_index(self):
+		# CREATE post
+
+		post = Post()
+		post.title = 'My first post'
+		post.text = 'This is my first blog post'
+		post.pub_date = timezone.now()
+		post.save()
+
+		all_posts = Post.objects.all()
+
+		self.assertEquals(len(all_posts), 1)
+
+		response = self.client.get('/')
+		self.assertEquals(response.status_code, 200)
