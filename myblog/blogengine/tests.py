@@ -210,5 +210,14 @@ class PostViewTesT(LiveServerTestCase):
 
 		self.assertEquals(len(all_posts), 1)
 
-		response = self.client.get('/')
+		response = self.client.get("/")
 		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue(post.title in response.content)
+
+		self.assertTrue(post.text in response.content)
+
+		self.assertTrue(str(post.pub_date.year) in response.content)
+
+		self.assertTrue(post.pub_date.strftime('%b') in response.content)
+		self.assertTrue(str(post.pub_date.day) in response.content)
