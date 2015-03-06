@@ -1,0 +1,29 @@
+{
+  "name": "myblog",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ndanielsen/blog",
+  "authors": [
+    "Nathan Danielsen <nathanjdanielsen@gmail.com>"
+  ],
+  "description": "This is my personal blog",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "something"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "blogengine/static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "html5-boilerplate": "~5.0.0"
+  }
+}
