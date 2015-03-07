@@ -1,0 +1,56 @@
+[
+{
+  "fields": {
+    "username": "nathan",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": true,
+    "is_staff": true,
+    "last_login": "2015-03-05T22:06:16.373Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$15000$ACqgQOyvslkU$bGNkXPxmIwpJMkM+aowPI1DX3vM5OnDGYU4fWUwdUa8=",
+    "email": "nathanjdanielsen@gmail.com",
+    "date_joined": "2015-03-05T22:06:16.373Z"
+  },
+  "model": "auth.user",
+  "pk": 1
+},
+{
+  "fields": {
+    "username": "ndanielsen",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": true,
+    "is_staff": true,
+    "last_login": "2015-03-05T22:52:25.426Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$15000$c3XN8GhRYOMZ$kqW4Yhoq9vyFBbw0AvozHwr/NEAmqEuzU42nRNR1Agw=",
+    "email": "nathanjdanielsen@gmail.com",
+    "date_joined": "2015-03-05T22:52:25.426Z"
+  },
+  "model": "auth.user",
+  "pk": 2
+},
+{
+  "fields": {
+    "username": "bobsmith",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": true,
+    "is_staff": true,
+    "last_login": "2015-03-05T22:53:18.595Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$15000$oOR6tyRN5k0x$D2/CKdAvD8rc+M8TAWCw1+eQ55Hk9JTtzOUQCdEwDAA=",
+    "email": "bob@example.com",
+    "date_joined": "2015-03-05T22:53:18.595Z"
+  },
+  "model": "auth.user",
+  "pk": 3
+}
+]
