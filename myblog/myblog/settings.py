@@ -37,7 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blogengine',
-    'djangobower'
+    'djangobower',
+    'django_extensions',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,3 +89,5 @@ STATIC_URL = '/static/'
 
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+SITE_ID = 1

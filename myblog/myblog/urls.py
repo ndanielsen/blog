@@ -15,4 +15,6 @@ urlpatterns = patterns('',
     #Blog URLs
 
     url(r'', include('blogengine.urls')),
+
+    url(r'', include('django.contrib.flatpages.urls')),
 )
