@@ -1,4 +1,4 @@
 *.pyc
 db.sqlite3
-blogengine/migrations/
-blogengine/static/bower_components
+**/blogengine/migrations/
+**/bower_components
