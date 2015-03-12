@@ -7,10 +7,11 @@
         
         <div class="post">
 
-        <h1>{{ post.title }}</h1>
+        <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
         <h3>{{ post.pub_date }}</h3>
         {{ post.text|custom_markdown }}
         </div>
+        <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
         {% endfor %}
     
 

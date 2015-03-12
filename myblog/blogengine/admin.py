@@ -1,6 +1,7 @@
 
 import models
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 # Register your models here.
 
@@ -12,4 +13,9 @@ class PostAdmin(admin.ModelAdmin):
     	obj.author = request.user
     	obj.save()
 
+
+admin.site.register(models.Category)
+# admin.site.register(models.Tag)
 admin.site.register(models.Post, PostAdmin)
+
+
