@@ -8,6 +8,12 @@ import feedparser
 
 import markdown2 as markdown
 
+
+"""
+Missing test for Models- espcially the Class Meta ordering for Category and Post.
+"""
+
+
 # Create your tests here.
 
 class PostTest(TestCase):
@@ -151,16 +157,6 @@ class PostTest(TestCase):
 		self.assertEquals(only_tag.slug, 'python')
 
 
-
-
-
-
-
-
-
-
-
-
 class BaseAcceptanceTest(LiveServerTestCase):
 	def setUp(self):
 		self.client = Client()
@@ -218,17 +214,17 @@ class AdminTest(BaseAcceptanceTest):
 		self.assertTrue('Log in' in response.content)
 
 
-	def test_create_post(self):
+	# def test_create_post(self):
 
-		#log in
+	# 	#log in
 
-		self.client.login(username="bobsmith", password="password")
+	# 	self.client.login(username="bobsmith", password="password")
 
-		#check response code
+	# 	#check response code
 
-		response = self.client.get('/admin/blogengine/post/add/')
+	# 	response = self.client.get('/admin/blogengine/post/add/')
 
-		self.assertEquals(response.status_code, 200)
+	# 	self.assertEquals(response.status_code, 200)
 
 
 	def test_create_post(self):
@@ -718,7 +714,7 @@ class PostViewTesT(BaseAcceptanceTest):
 		self.assertTrue('<a href="http://127.0.0.1:8000/">my first blog post</a>' in response.content)
 
 
-	def test_create_tag(self):
+	def test_create_tag_system(self):
 		#create the tag
 
 		tag = Tag()
