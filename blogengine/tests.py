@@ -390,7 +390,7 @@ class AdminTest(BaseAcceptanceTest):
 		self.client.login(username='bobsmith', password="password")
 
 		# Delete the post
-		response = self.client.post('/admin/blogengine/post/2/delete/', {
+		response = self.client.post('/admin/blogengine/post/' + str(post.pk) + '/delete/', {
 			'post': 'yes'
 		}, follow=True)
 		self.assertEquals(response.status_code, 200)
