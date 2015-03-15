@@ -64,8 +64,8 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
+        'ENGINE': 'django_postgrespool',
+        #'NAME': '',
     }
 }
 
@@ -107,6 +107,9 @@ DATABASES['default'] =  dj_database_url.config(default="sqlite:///db.sqlite3")
 
 # Enable Connection Pooling
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
+
+
+
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
