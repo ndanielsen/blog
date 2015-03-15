@@ -16,8 +16,11 @@
         <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
         {% endfor %}
 
-        
+
         {% endfor %}
+        {% else %}
+            <p>No posts found</p>
+        {% endif %}
     
 
        {% if page_obj.has_previous %}

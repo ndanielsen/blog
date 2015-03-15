@@ -220,72 +220,70 @@ class AdminTest(BaseAcceptanceTest):
 		"""
 		Need to figure out how to get the post id
 		"""	
-		# # Create the category
-		# category = Category()
-		# category.name = 'python'
-		# category.description = 'The Python programming language'
-		# category.save()
+		# Create the category
+		category = Category()
+		category.name = 'python'
+		category.description = 'The Python programming language'
+		category.save()
 
-		# # Create the tag
-		# tag = Tag()
-		# tag.name = 'python'
-		# tag.description = 'The Python programming language'
-		# tag.save()
-
-
-
-		pass
-
-		# # Create the site
-		# site = Site()
-		# site.name = 'example.com'
-		# site.domain = 'example.com'
-		# site.save()	
+		# Create the tag
+		tag = Tag()
+		tag.name = 'python'
+		tag.description = 'The Python programming language'
+		tag.save()
 
 
-		# author = User.objects.create_user('testuser', 'user@example.com', 'password')
-		# author.save()
-		# post = Post()
-		# post.title = 'My first post'
-		# post.text = 'This is my first blog post'
-		# post.pub_date = timezone.now()
-		# post.author = author
-		# post.site = site
-		# post.save()
-		# post.tags.add(tag)
-		# post.save()
+
+		
+
+		# Create the site
+		site = Site()
+		site.name = 'example.com'
+		site.domain = 'example.com'
+		site.save()	
+
+
+		author = User.objects.create_user('testuser', 'user@example.com', 'password')
+		author.save()
+		post = Post()
+		post.title = 'My first post'
+		post.text = 'This is my first blog post'
+		post.pub_date = timezone.now()
+		post.author = author
+		post.site = site
+		post.save()
+		post.tags.add(tag)
+		post.save()
 
 
 
 
   #       ## Log in
-		# self.client.login(username='bobsmith', password="password")
+		self.client.login(username='bobsmith', password="password")
 
 
-  #       # Edit the post
-		# response = self.client.post('/admin/blogengine/post/2/', {
-		# 	'title': 'My second post',
-		# 	'text': 'This is my second blog post',
-		# 	'pub_date_0': '2013-12-28',
-		# 	'pub_date_1': '22:00:04',
-		# 	'slug': 'my-first-post',
-		# 	'site':'1',
-		# 	'category': '1',
-		#	'tag':'1'
-		# },
-		# follow=True
-		# )
-		# self.assertEquals(response.status_code, 200)
-
-		# # Check changed successfully
-		# self.assertTrue('changed successfully' in response.content)
+		#Edit the post
+		response = self.client.post('/admin/blogengine/post/' + str(post.pk) + '/', {
+			'title': 'My second post',
+			'text': 'This is my second blog post',
+			'pub_date_0': '2013-12-28',
+			'pub_date_1': '22:00:04',
+			'slug': 'my-second-post',
+			'site': '1',
+			'category': str(category.pk),
+		    'tags': str(tag.pk)
+		},
+		follow=True
+		)
+		# Check changed successfully
+		self.assertTrue('changed successfully' in response.content)
 
 
-		# all_posts = Post.objects.all()
-		# self.assertEquals(len(all_posts), 1)
-		# only_post = all_posts[0]
-		# self.assertEquals(only_post.title, 'My second post')
-		# self.assertEquals(only_post.text, 'This is my second blog post')
+		all_posts = Post.objects.all()
+		self.assertEquals(len(all_posts), 1)
+		only_post = all_posts[0]
+		self.assertEquals(only_post.title, 'My second post')
+		self.assertEquals(only_post.text, 'This is my second blog post')
 
 	def test_delete_post(self):
 

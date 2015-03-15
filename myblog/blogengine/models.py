@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.text import slugify
 
+
 # Create your models here.
 
 class Category(models.Model):
@@ -60,4 +61,6 @@ class Post(models.Model):
 
 	class Meta:
 		ordering = ["-pub_date"]
+
+
 
