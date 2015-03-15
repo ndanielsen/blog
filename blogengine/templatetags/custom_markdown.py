@@ -10,7 +10,7 @@ register = template.Library()
 @register.filter(is_safe=True)
 @stringfilter
 def custom_markdown(value):
-    extras = ["fenced-code-blocks"]
+	extras = ["fenced-code-blocks"]
 
-    return mark_safe(markdown2.markdown(force_unicode(value),
-                                       extras = extras))
+	return mark_safe(markdown2.markdown(force_unicode(value),
+										extras = extras))

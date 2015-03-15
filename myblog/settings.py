@@ -64,7 +64,10 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_postgrespool',
+        'ENGINE': 'django.db.backends.',
+        'NAME': '',
+
+        #'ENGINE': 'django_postgrespool',
         #'NAME': '',
     }
 }
@@ -106,7 +109,8 @@ import dj_database_url
 DATABASES['default'] =  dj_database_url.config(default="sqlite:///db.sqlite3")
 
 # Enable Connection Pooling
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+# RE-ENABLE BEFORE Deployment to HEROKU!
+#DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
 
