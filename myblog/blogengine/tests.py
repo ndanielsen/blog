@@ -15,9 +15,16 @@ class PostTest(TestCase):
 		
 		# Create the category
 		category = Category()
+
+		#add attributes
 		category.name = 'python'
 		category.description = 'The Python programming language'
+		
+		#save it
 		category.save()
+
+
+
 
 		# Create the tag
 		tag = Tag()
@@ -94,6 +101,63 @@ class PostTest(TestCase):
 		self.assertEquals(only_post_tag, tag)
 		self.assertEquals(only_post_tag.name, 'python')
 		self.assertEquals(only_post_tag.description, 'The Python programming language')
+
+
+
+	def test_create_category(self):
+		# Create the category
+		category = Category()
+
+		# Add attributes
+		category.name = 'python'
+		category.description = 'The Python programming language'
+		category.slug = 'python'
+
+		# Save it
+		category.save()
+
+		# Check we can find it
+		all_categories = Category.objects.all()
+		self.assertEquals(len(all_categories), 1)
+		only_category = all_categories[0]
+		self.assertEquals(only_category, category)
+
+		# Check attributes
+		self.assertEquals(only_category.name, 'python')
+		self.assertEquals(only_category.description, 'The Python programming language')
+		self.assertEquals(only_category.slug, 'python')
+
+	def test_create_tag(self):
+		# Create the tag
+		tag = Tag()
+
+		# Add attributes
+		tag.name = 'python'
+		tag.description = 'The Python programming language'
+		tag.slug = 'python'
+
+		# Save it
+		tag.save()
+
+		# Check we can find it
+		all_tags = Tag.objects.all()
+		self.assertEquals(len(all_tags), 1)
+		only_tag = all_tags[0]
+		self.assertEquals(only_tag, tag)
+
+		# Check attributes
+		self.assertEquals(only_tag.name, 'python')
+		self.assertEquals(only_tag.description, 'The Python programming language')
+		self.assertEquals(only_tag.slug, 'python')
+
+
+
+
+
+
+
+
+
 
 
 
