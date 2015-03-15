@@ -178,14 +178,14 @@ class AdminTest(BaseAcceptanceTest):
 		self.client.login(username='bobsmith', password='password')
 
 		#check response code
-		response = self.client.get('/admin/blogengine/post/add/', {
+		response = self.client.post('/admin/blogengine/post/add/', {
 			'title': 'My first post',
 			'text': 'This is my first post',
 			'pub_date_0': '2013-12-28',
 			'pub_date_1': '22:00:04',
 			'slug': 'my-first-post',
 			'site': '1',
-			'category': '1'
+			'category': str(category.pk)
 
 		},		
 		follow=True
