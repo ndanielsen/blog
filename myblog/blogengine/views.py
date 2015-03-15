@@ -22,7 +22,7 @@ class TagListView(ListView):
 			tag = Tag.objects.get(slug=slug)
 			return tag.post_set.all()
 		except Tag.DoesNotExist:
-			return Post.objects.non()
+			return Post.objects.none()
 
 
 class PostsFeed(Feed):
