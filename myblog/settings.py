@@ -52,6 +52,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+
 )
 
 ROOT_URLCONF = 'myblog.urls'
@@ -67,8 +71,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.',
         'NAME': '',
 
-        #'ENGINE': 'django_postgrespool',
-        #'NAME': '',
+        # 'ENGINE': 'django_postgrespool',
+        # 'NAME': '',
     }
 }
 
@@ -110,7 +114,7 @@ DATABASES['default'] =  dj_database_url.config(default="sqlite:///db.sqlite3")
 
 # Enable Connection Pooling
 # RE-ENABLE BEFORE Deployment to HEROKU!
-#DATABASES['default']['ENGINE'] = 'django_postgrespool'
+# DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
 
@@ -128,3 +132,34 @@ STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+
+def get_cache():
+    import os
+    try:
+        os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS'].replace(',', ';')
+        os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
+        os.environ['MEMCACHE_PASSWORD'] = os.environ['MEMCACHIER_PASSWORD']
+        return {
+            'default': {
+                'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+                'TIMEOUT': 300,
+                'BINARY': True,
+                'OPTIONS': { 'tcp_nodelay': True }
+            }
+        }
+    except:
+        return {
+            'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+
+            #Testing locally only with LOCATION
+            'LOCATION': '127.0.0.1:11211'
+            }
+        }
+
+CACHES = get_cache()
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
