@@ -4,14 +4,128 @@ from blogengine.models import Post, Category, Tag
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-import feedparser
-
 import markdown2 as markdown
+import feedparser
+import factory.django
 
 
 """
 Missing test for Models- espcially the Class Meta ordering for Category and Post.
 """
+
+
+
+# Factories for tests
+class SiteFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Site
+		django_get_or_create = (
+			'name',
+			'domain'
+		)
+        
+	name = 'example.com'
+domain = 'example.com'
+
+class CategoryFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Category
+		django_get_or_create = (
+			'name',
+			'description',
+			'slug'
+		)
+
+	name = 'python'
+	description = 'The Python programming language'
+	slug = 'python'
+
+
+class TagFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Tag
+		django_get_or_create = (
+			'name',
+			'description',
+			'slug'
+		)
+
+	name = 'python'
+	description = 'The Python programming language'
+	slug = 'python'
+
+
+class AuthorFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = User
+		django_get_or_create = ('username','email', 'password',)
+
+	username = 'testuser'
+	email = 'user@example.com'
+	password = 'password'
+
+
+class FlatPageFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = FlatPage
+		django_get_or_create = (
+			'url',
+			'title',
+			'content'
+		)
+
+	url = '/about/'
+	title = 'About me'
+	content = 'All about me'	
+
+
+class PostFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Post
+		django_get_or_create = (
+			'title',
+			'text',
+			'slug',
+			'pub_date'
+		)
+
+	title = 'My first post'
+	text = 'This is my first blog post'
+	slug = 'my-first-post'
+	pub_date = timezone.now()
+	author = factory.SubFactory(AuthorFactory)
+	site = factory.SubFactory(SiteFactory)
+	category = factory.SubFactory(CategoryFactory)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Create your tests here.
