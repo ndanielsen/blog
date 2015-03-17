@@ -25,7 +25,7 @@ class SiteFactory(factory.django.DjangoModelFactory):
 		)
         
 	name = 'example.com'
-domain = 'example.com'
+	domain = 'example.com'
 
 class CategoryFactory(factory.django.DjangoModelFactory):
 	class Meta:
@@ -39,7 +39,6 @@ class CategoryFactory(factory.django.DjangoModelFactory):
 	name = 'python'
 	description = 'The Python programming language'
 	slug = 'python'
-
 
 class TagFactory(factory.django.DjangoModelFactory):
 	class Meta:
@@ -65,6 +64,7 @@ class AuthorFactory(factory.django.DjangoModelFactory):
 	password = 'password'
 
 
+
 class FlatPageFactory(factory.django.DjangoModelFactory):
 	class Meta:
 		model = FlatPage
@@ -76,105 +76,41 @@ class FlatPageFactory(factory.django.DjangoModelFactory):
 
 	url = '/about/'
 	title = 'About me'
-	content = 'All about me'	
+	content = 'All about me'
 
 
 class PostFactory(factory.django.DjangoModelFactory):
-	class Meta:
-		model = Post
-		django_get_or_create = (
-			'title',
-			'text',
-			'slug',
-			'pub_date'
-		)
+    class Meta:
+        model = Post
+        django_get_or_create = (
+            'title',
+            'text',
+            'slug',
+            'pub_date'
+        )
 
-	title = 'My first post'
-	text = 'This is my first blog post'
-	slug = 'my-first-post'
-	pub_date = timezone.now()
-	author = factory.SubFactory(AuthorFactory)
-	site = factory.SubFactory(SiteFactory)
-	category = factory.SubFactory(CategoryFactory)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    title = 'My first post'
+    text = 'This is my first blog post'
+    slug = 'my-first-post'
+    pub_date = timezone.now()
+    author = factory.SubFactory(AuthorFactory)
+    site = factory.SubFactory(SiteFactory)
+    category = factory.SubFactory(CategoryFactory)
 
 
 
 
 
 # Create your tests here.
-
 class PostTest(TestCase):
 	def test_create_post(self):
 		
-		# Create the category
-		category = Category()
-
-		#add attributes
-		category.name = 'python'
-		category.description = 'The Python programming language'
-		
-		#save it
-		category.save()
-
-
-
 
 		# Create the tag
-		tag = Tag()
-		tag.name = 'python'
-		tag.description = 'The Python programming language'
-		tag.save()
-
-
-		# create the author
-
-		author = User.objects.create_user('testuser', 'user@example.com', 'password')
-		author.save()
-
-		#Create site
-
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
-
+		tag = TagFactory()
 
 		#Create Post
-		post = Post()
-		post.title = "My first post"
-		post.text = "This is my first blog post"
-		post.slug = "my-first-post"
-		post.pub_date = timezone.now()
-		post.author = author
-		post.site = site
-		post.category = category
+		post = PostFactory()
 
 		post.save()
 
@@ -362,18 +298,6 @@ class AdminTest(BaseAcceptanceTest):
 		self.assertTrue('Log in' in response.content)
 
 
-	# def test_create_post(self):
-
-	# 	#log in
-
-	# 	self.client.login(username="bobsmith", password="password")
-
-	# 	#check response code
-
-	# 	response = self.client.get('/admin/blogengine/post/add/')
-
-	# 	self.assertEquals(response.status_code, 200)
-
 
 	def test_create_post(self):
 		
@@ -445,10 +369,7 @@ class AdminTest(BaseAcceptanceTest):
 		
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()	
+		site = SiteFactory()
 
 
 		author = User.objects.create_user('testuser', 'user@example.com', 'password')
@@ -513,10 +434,7 @@ class AdminTest(BaseAcceptanceTest):
 		author.save()
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 
 		post = Post()
@@ -671,10 +589,7 @@ class PostViewTest(BaseAcceptanceTest):
 
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 
 		# CREATE post
@@ -745,10 +660,7 @@ class PostViewTest(BaseAcceptanceTest):
 		author.save()
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 
 		# Create the post
@@ -814,10 +726,7 @@ class PostViewTest(BaseAcceptanceTest):
 		author.save()
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 
 		# Create the post
@@ -978,10 +887,7 @@ class PostViewTest(BaseAcceptanceTest):
 		author.save()
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 		# Create the post
 		post = Post()
@@ -1055,10 +961,7 @@ class PostViewTest(BaseAcceptanceTest):
 		author.save()
 
 		# Create the site
-		site = Site()
-		site.name = 'example.com'
-		site.domain = 'example.com'
-		site.save()
+		site = SiteFactory()
 
 		# Create the first post
 		post = Post()
@@ -1108,11 +1011,7 @@ class FlatPageViewTest(BaseAcceptanceTest):
 
 	def test_create_flat_page(self):
 
-		page = FlatPage()
-		page.url = '/about/'
-		page.title = 'About me'
-		page.content = "All about me"
-		page.save()
+		page = FlatPageFactory()
 
 		page.sites.add(Site.objects.all()[0])
 		page.save()
@@ -1211,6 +1110,32 @@ class FeedTest(BaseAcceptanceTest):
 
 		# Fetch the feed
 		response = self.client.get('/feeds/posts/')
+		self.assertEquals(response.status_code, 200)
+
+		# Parse the feed
+		feed = feedparser.parse(response.content)
+
+		# Check length
+		self.assertEquals(len(feed.entries), 1)
+
+		# Check post retrieved is the correct one
+		feed_post = feed.entries[0]
+		self.assertEquals(feed_post.title, post.title)
+		self.assertTrue('This is my <em>first</em> blog post' in feed_post.description)
+
+		# Check other post is not in this feed
+		self.assertTrue('This is my <em>second</em> blog post' not in response.content)
+
+	def test_category_feed(self):
+		# Create a post
+		post = PostFactory(text='This is my *first* blog post')
+
+		# Create another post in a different category
+		category = CategoryFactory(name='perl', description='The Perl programming language', slug='perl')
+		post2 = PostFactory(text='This is my *second* blog post', title='My second post', slug='my-second-post', category=category)
+
+		# Fetch the feed
+		response = self.client.get('/feeds/posts/category/python/')
 		self.assertEquals(response.status_code, 200)
 
 		# Parse the feed
